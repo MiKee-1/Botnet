@@ -1,0 +1,11 @@
+termcolor
+pycryptodome
+paramiko
+pynput
+requests
+scapy
+pywin32
+pyperclip
+netifaces
+WMI
+psutil
