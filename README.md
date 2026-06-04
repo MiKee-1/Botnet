@@ -50,8 +50,8 @@ From a **defensive perspective**, this code is useful for understanding:
 2. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/educational-rat-analysis.git
-   cd educational-rat-analysis
+   git clone https://github.com/MiKee-1/Botnet
+   cd Botnet
    ```
 
 3. **Set up Python environment**
